@@ -26,17 +26,19 @@ namespace Cse210Starter
             //Game
             while (!won)
             {
-                //Check if it's player 1 turn or not
+                //Display board
                  BoardState(board);
+
+                 //Check if it's player 1 turn or not
                  if (player1)
                  {
-                     Console.Write("\n x's turn to choose a square (1-9)");
+                     Console.Write("\nx's turn to choose a square (1-9)");
                      choice = Console.ReadLine();
                      board[board.IndexOf(choice)] = "x";
                  }
                  else
                  {
-                     Console.Write("\n o's turn to choose a square (1-9)");
+                     Console.Write("\no's turn to choose a square (1-9)");
                      choice = Console.ReadLine();
                      board[board.IndexOf(choice)] = "o";
                  }
@@ -45,7 +47,16 @@ namespace Cse210Starter
 
                 //Check if someone won
                  boardCon = BoardCondition(board);
-                 won = WinCon(boardCon);
+                 if (won == false)
+                 {
+                     won = WinCon(boardCon);
+                 }
+
+                 if (won == false)
+                 {
+                     won = Tie(board);
+                 }
+                 
                  
             }
 
@@ -55,6 +66,10 @@ namespace Cse210Starter
             if (!player1)
             {
                 Console.WriteLine("\n\n\nCongrates for Player 1! Good Game");
+            }
+            else if (Tie(board))
+            {
+                Console.WriteLine("\n\n\nDang, you guys tied.");
             }
             else
             {
@@ -86,7 +101,7 @@ namespace Cse210Starter
                     }
                     i++;
                 }
-
+                //Makes the -+-+- pattern
                 if (r < 2)
                 {
                     Console.WriteLine("-+-+-");
@@ -102,7 +117,7 @@ namespace Cse210Starter
             {
                 player1 = true;
             }
-            else
+            else 
             {
                 player1 = false;
             }
@@ -151,6 +166,20 @@ namespace Cse210Starter
             boardCondition.Add(board[2]+board[4]+board[6]);
 
             return boardCondition;
+        }
+        static bool Tie(List<string> board)
+        {
+            bool isTie = false;
+            foreach (string values in board)
+            {
+                if (values != "x" || values != "o")
+                {
+                    isTie = false;
+                    break;
+                }   
+                isTie = true;
+            }
+            return isTie;
         }
     }
 }
