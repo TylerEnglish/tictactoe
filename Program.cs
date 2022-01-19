@@ -11,7 +11,7 @@ namespace Cse210Starter
             //Setting the state of board
             List<string> board = new List<string>(9) {"1","2","3","4","5","6","7","8","9"};
 
-           // Game
+            // Game
             Game(board);            
         }
         static void Game(List<string> board)
@@ -63,13 +63,14 @@ namespace Cse210Starter
             //Display winner
             Console.WriteLine("\n\n\n");
             BoardState(board);
-            if (!player1)
-            {
-                Console.WriteLine("\n\n\nCongrates for Player 1! Good Game");
-            }
-            else if (Tie(board))
+            if (Tie(board))
             {
                 Console.WriteLine("\n\n\nDang, you guys tied.");
+
+            }
+            else if (!player1)
+            {
+                Console.WriteLine("\n\n\nCongrates for Player 1! Good Game");
             }
             else
             {
@@ -172,14 +173,15 @@ namespace Cse210Starter
             bool isTie = false;
             foreach (string values in board)
             {
-                if (values != "x" || values != "o")
+                if (char.IsDigit(values[0]))
                 {
-                    isTie = false;
+                    isTie = true;
                     break;
+                    
                 }   
-                isTie = true;
+                
             }
-            return isTie;
+            return !isTie;
         }
     }
 }
